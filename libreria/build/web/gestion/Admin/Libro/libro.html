@@ -1,0 +1,100 @@
+<div class="container mt-5 mb-5">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="text-center">Gesti&oacute;n Libros</h2>
+        </div>                  
+        <div class="card-body" style="background-color:#EFEFEF">
+            <form>
+                <div class="row" hidden="">
+                    <div class="col-4">
+                        <input type="hidden" id="id" class="form-control" disabled><br>
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label class="form-label">Título</label><br>
+                        <input type="text" id="txtTitulo" class="form-control"><br>
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label">Autor</label><br>
+                        <input type="text" id="txtAutor" class="form-control"><br>
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label">Idioma</label><br>
+                        <select class="form-select" id="slcIdioma">
+                            <option value="D">Selecciona una opción</option>
+                            <option value="Inglés">Ingles</option>
+                            <option value="Español">Español</option>
+                        </select> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label class="form-label">Género:</label><br>
+                        <select class="form-select" id="slcGenero">
+                            <option value="D">Selecciona una opción</option>
+                            <option value="Drama">Drama</option>
+                            <option value="Romance">Romance</option>
+                            <option value="Comedia">Comedia</option>
+                            <option value="Suspenso">Suspenso</option>
+                            <option value="Ciencia Ficcion">Ciencia Ficcion</option>
+                        </select>   
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label">Estatus:</label><br>
+                        <select class="form-select" id="slcEstatus">
+                            <option value="D">Selecciona una opción</option>
+                            <option value="0">Público</option>
+                            <option value="1">Privado</option>
+                        </select>   
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label">Archivo</label><br>
+                        <input type="file" id="txtArchivo" class="form-control"><br>  
+                    </div>
+                </div> 
+            </form>
+        </div>
+        <div class="card-footer">
+            <center>
+                <button type="button" class="btn btn-primary m-3 " onclick="ma.insertar()">Agregar</button>  
+                <button type="button" class="btn btn-primary m-3 " onclick="ma.actualizar()">Guardar Cambios</button>  
+            </center>
+        </div>
+    </div>
+
+</div>
+<div class="container mt-5 mb-5">
+    <div class="card">
+        <div class="card-header">
+            <div class="row"> 
+                <div class="col-12">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search" id="txtSearch">
+                        <button class="btn btn-primary" type="button" onclick="ma.buscar()">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- <button type="button" onclick="getAll();">Cargar</button>-->
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">  
+                    <caption>Lista de libros</caption>
+                    <thead class="mb-5 mt-5">
+                        <tr>
+                            <th class="m-3">TÍTULO</th>
+                            <th class="m-3">AUTOR</th>
+                            <th class="m-3">GÉNERO</th>
+                            <th class="m-3">IDIOMA</th>
+                            <th class="m-3">ESTATUS</th>
+                            <th class="m-3">MODIFICAR</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbLibro">                      
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div> 
