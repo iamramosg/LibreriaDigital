@@ -23,24 +23,13 @@ public class Usuario {
     private String lastToken;
     private String dateLastToken;
     private int estatus;
+    private String rfc;
+    private String telefono;
 
     public Usuario() {
     }
 
-    public Usuario(String nombre, String apellidoP, String apellidoM, String genero, String correo, String contrasenia, String rol, String lastToken, String dateLastToken, int estatus) {
-        this.nombre = nombre;
-        this.apellidoP = apellidoP;
-        this.apellidoM = apellidoM;
-        this.genero = genero;
-        this.correo = correo;
-        this.contrasenia = contrasenia;
-        this.rol = rol;
-        this.lastToken = lastToken;
-        this.dateLastToken = dateLastToken;
-        this.estatus = estatus;
-    }
-
-    public Usuario(int idUsuario, String nombre, String apellidoP, String apellidoM, String genero, String correo, String contrasenia, String rol, String lastToken, String dateLastToken, int estatus) {
+    public Usuario(int idUsuario, String nombre, String apellidoP, String apellidoM, String genero, String correo, String contrasenia, String rol, String lastToken, String dateLastToken, int estatus, String rfc, String telefono) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellidoP = apellidoP;
@@ -52,7 +41,30 @@ public class Usuario {
         this.lastToken = lastToken;
         this.dateLastToken = dateLastToken;
         this.estatus = estatus;
+        this.rfc = rfc;
+        this.telefono = telefono;
     }
+    
+
+    public Usuario(String correo) {
+        this.correo = correo;
+    }
+
+    public Usuario(String nombre, String apellidoP, String apellidoM, String genero, String correo, String contrasenia, String rol, String lastToken, String dateLastToken, int estatus, String rfc, String telefono) {
+        this.nombre = nombre;
+        this.apellidoP = apellidoP;
+        this.apellidoM = apellidoM;
+        this.genero = genero;
+        this.correo = correo;
+        this.contrasenia = contrasenia;
+        this.rol = rol;
+        this.lastToken = lastToken;
+        this.dateLastToken = dateLastToken;
+        this.estatus = estatus;
+        this.rfc = rfc;
+        this.telefono = telefono;
+    }
+    
 
     public Usuario(String correo, String contrasenia) {
         this.correo = correo;
@@ -157,6 +169,22 @@ public class Usuario {
     @Override
     public String toString() {
         return "Usuario{" + "idUsuario=" + idUsuario + ", nombre=" + nombre + ", apellidoP=" + apellidoP + ", apellidoM=" + apellidoM + ", genero=" + genero + ", correo=" + correo + ", contrasenia=" + contrasenia + ", rol=" + rol + ", lastToken=" + lastToken + ", dateLastToken=" + dateLastToken + ", estatus=" + estatus + '}';
+    }
+
+    public String getRfc() {
+        return rfc;
+    }
+
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
     
     

@@ -29,7 +29,8 @@ public class Prueba {
         //probarBuscar();
 //        probarConexion();
           //probarAcceso2();
-          probarInsertarC();
+          //probarInsertarC();
+          //cambiar();
     }
 
     public static void probarConexion() {
@@ -62,37 +63,37 @@ public class Prueba {
         }
     }
 //    
-        public static void probarBuscar(){
-
- 
-    
-        ControllerLibro ca = new ControllerLibro();
-        try{
-            //Empleado e = ca.entrar(u);
-            ca.buscarLibro("cracking");
-            System.out.println("Acceso Concedido");
-        }catch(Exception ex){
-            System.out.println("Acceso Denegado");
-        }
-    }
-    public static void probarAcceso2() {
-        Usuario u = new Usuario();
-        u.setContrasenia("15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");
-        u.setCorreo("iamramosg@gmail.com");
-
-        usuarioDao ca = new usuarioDao();
-        ControllerLogin objca = new ControllerLogin();
-        try {
-            //Empleado e = ca.entrar(u);
-            //u = ca.getByCorreo(u);
-            u = objca.entrarAdministrdor(u);
-            u.toString();
-            System.out.println("Acceso Concedido");
-            System.out.println(u.getIdUsuario());
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-    }
+//        public static void probarBuscar(){
+//
+// 
+//    
+//        ControllerLibro ca = new ControllerLibro();
+//        try{
+//            //Empleado e = ca.entrar(u);
+//            ca.buscarLibro("cracking");
+//            System.out.println("Acceso Concedido");
+//        }catch(Exception ex){
+//            System.out.println("Acceso Denegado");
+//        }
+//    }
+//    public static void probarAcceso2() {
+//        Usuario u = new Usuario();
+//        //u.setContrasenia("15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");
+//        u.setCorreo("iamramosg@gmail.com");
+//
+//        usuarioDao ca = new usuarioDao();
+//        ControllerLogin objca = new ControllerLogin();
+//        try {
+//            //Empleado e = ca.entrar(u);
+//            //u = ca.getByCorreo(u);
+//            u = objca.Busqueda(u);
+//            u.toString();
+//            System.out.println("Acceso Concedido");
+//            System.out.println(u.getIdUsuario());
+//        } catch (Exception ex) {
+//            System.out.println(ex);
+//        }
+//    }
     public static void probarInsertarC(){
         Usuario u = new Usuario();
         u.setNombre("Maria");
@@ -112,5 +113,20 @@ public class Prueba {
             System.out.println(ex);
         }
     }
+//    public static void cambiar(){
+//        Usuario u = new Usuario();
+//        u.setCorreo("maria@gmail.com");
+//        //u.setContrasenia("15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");
+//        
+//        UsuarioCQRS cq = new UsuarioCQRS();
+//        //ControllerLogin ca = new ControllerLogin();
+//        try{
+//            //cq.insertar(u);
+//            cq.restablecerContraseña(u, "0123456789");
+//            System.out.println("Nueva contraseña");
+//        } catch(Exception ex){
+//            System.out.println(ex);
+//        }
+//    }    
 
 }

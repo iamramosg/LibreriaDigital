@@ -1,4 +1,5 @@
 let alumnos;
+let usuario;
 export function inicializar() {
     getAll();
 }
@@ -24,8 +25,8 @@ function insertar() {
     let genero = document.getElementById("slcgenero").value;
     let correo = document.getElementById("txtCorreo").value;
     let contrasenia = document.getElementById("txtContrasenia").value;
-    let matricula = document.getElementById("txtMatricula").value;
-    let idUniversidad = document.getElementById("slcUniversidad").value;
+//    let matricula = document.getElementById("txtMatricula").value;
+//    let idUniversidad = document.getElementById("slcUniversidad").value;
 
     // Encriptar la contraseña antes de enviarla
     encriptar(contrasenia)
@@ -39,12 +40,12 @@ function insertar() {
                 contrasenia: contraseniaEncriptada // Enviamos la contraseña encriptada
             };
 
-            let universidad = { idUniversidad: idUniversidad };
-            let a = { usuario: usuario, matricula: matricula, universidad: universidad };
+//            let universidad = { idUniversidad: idUniversidad };
+            let a = { usuario: usuario};
             let alumno = { datosAlumno: JSON.stringify(a) };
             let parametros = new URLSearchParams(alumno);
 
-            fetch("api/restlibreria/insertarAlumno", {
+            fetch("api/restlibreria/insertarCliente", {
                 method: "POST",
                 body: parametros,
                 headers: {
@@ -56,7 +57,7 @@ function insertar() {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Alumno agregado exitosamente',
+                    title: 'Usuario agregado exitosamente',
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -88,30 +89,32 @@ export async function actualizar() {
     let apellidoP = document.getElementById("txtApPaterno").value;
     let apellidoM = document.getElementById("txtApMaterno").value;
     let genero = document.getElementById("slcgenero").value;
+    let correo = document.getElementById("txtCorreo").value;
     let contrasenia = document.getElementById("txtContrasenia").value;
-    let matricula = document.getElementById("txtMatricula").value;
-    let idUniversidad = document.getElementById("slcUniversidad").value;
+//    let matricula = document.getElementById("txtMatricula").value;
+//    let idUniversidad = document.getElementById("slcUniversidad").value;
     let idUsuario = document.getElementById("txtidUsuario").value;
-    let idAlumno = document.getElementById("txtidAlumno").value;
+//    let idAlumno = document.getElementById("txtidAlumno").value;
 
     // Encriptar la contraseña antes de enviarla
     const contraseniaEncriptada = await encriptar(contrasenia);
 
-    let usuario = {
+    let user = {
         idUsuario: idUsuario,
         nombre: nombre,
         apellidoP: apellidoP,
         apellidoM: apellidoM,
         genero: genero,
-        contrasenia: contraseniaEncriptada, // Enviamos la contraseña encriptada
+        correo:correo,
+        contrasenia: contraseniaEncriptada // Enviamos la contraseña encriptada
     };
 
-    let universidad = { idUniversidad: idUniversidad };
-    let a = { idAlumno: idAlumno, usuario: usuario, matricula: matricula, universidad: universidad };
-    let alumno = { datosAlumno: JSON.stringify(a) };
-    let parametros = new URLSearchParams(alumno);
+//    let universidad = { idUniversidad: idUniversidad };
 
-    fetch("../../api/restlibreria/actualizarAlumno", {
+    let usr = { datosUsuario: JSON.stringify(user) };
+    let parametros = new URLSearchParams(usr);
+
+    fetch("../../api/restlibreria/restablecerContra", {
         method: "POST",
         body: parametros,
         headers: {
@@ -134,10 +137,8 @@ export async function actualizar() {
 }
 
 
-export function getAll(){
-    let datos = {estatus: 1};
-    let parametros = new URLSearchParams(datos); // nuestro json lo convierte en un bloque de parametros, se usa para post
-    fetch("../../api/restlibreria/getAllAlumno", {method: "POST", body: parametros, headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}})
+export function getAll(){ // nuestro json lo convierte en un bloque de parametros, se usa para post
+    fetch("../../api/restlibreria/getAllUsuarioPublic", {method: "GET", headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}})
             .then(response => response.json())
             .then(data => {
 //                    console.log(data);
@@ -145,29 +146,52 @@ export function getAll(){
                     if (data.error) {
                         alert(data.error);
                     }else{
-                        cargarTablaALumnos(null,data);
+                        cargarTablaAlumnos(null,data);
                     }
                 });      
 }
 
-export function cargarTablaALumnos(coincidencias, data){
+export function getByCorreo(correoi){ // nuestro json lo convierte en un bloque de parametros, se usa para post
+    let usuario = { datosUsuario: JSON.stringify({correo:alumnos[correoi].usrname}) };
+    let parametros = new URLSearchParams(usuario);
+    fetch("../../api/restlibreria/buscarByCorreo", {
+        method: "POST",
+        body: parametros,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        }
+    })
+            .then(response => response.json())
+            .then(data => {
+//                    console.log(data);
+//            alert(JSON.stringify(data));
+                    if (data.error) {
+                        alert(data.error);
+                    }else{
+                        console.log(data);
+                        cargarForm(data);
+                    }
+                });      
+}
+
+export function cargarTablaAlumnos(coincidencias, data){
     if(coincidencias){
         data = coincidencias;
     }else 
     alumnos = data;
     let contenido = "";
-    data.forEach((alumno, index) =>{
-        let nc = alumno.usuario.nombre+" "+alumno.usuario.apellidoP+" "+alumno.usuario.apellidoM;
-        let un = alumno.universidad.nombre+", "+alumno.universidad.pais;
+    data.forEach((usuario, index) =>{
+//        let nc = usuario.nombre+" "+usuario.apellidoP+" "+usuario.apellidoM;
+//        let un = alumno.universidad.nombre+" "+alumno.universidad.pais;
 
         
         contenido += "<tr>";
-        contenido+="<td>"+nc+"</td>";
-        contenido+="<td>"+un+"</td>";
-        contenido+="<td>"+alumno.usuario.correo+"</td>";
-        contenido+="<td>"+alumno.matricula+"</td>";
-        contenido += "<td><button type='button' class='btn btn-danger m-3' onclick='ma.eliminar(" + alumno.usuario.idUsuario + "," + alumno.idAlumno + ")'>Eliminar</button></td>";
-        contenido += "<td><button type='button' class='btn btn-warning m-3' onclick='ma.cargarForm("+index+")'>Ver</button></td>";
+//        contenido+="<td>"+nc+"</td>";
+//        contenido+="<td>"+un+"</td>";
+        contenido+="<td>"+usuario.usrname+"</td>";
+//        contenido+="<td>"+alumno.matricula+"</td>";
+        //contenido += "<td><button type='button' class='btn btn-danger m-3' onclick='ma.eliminar(" + usuario.usrid + ")'>Eliminar</button></td>";
+        contenido += "<td><button type='button' class='btn btn-light m-3' onclick='ma.getByCorreo("+index+")'>Ver</button></td>";
         contenido += "</tr>";
     });
     document.getElementById("tbAlumno").innerHTML=contenido;        
@@ -192,22 +216,27 @@ export function eliminar(idUsuario, idAlumno){
     });    
 }
 
-export function cargarForm(i){
-    document.getElementById("txtNombre").value = alumnos[i].usuario.nombre;
-    document.getElementById("txtApPaterno").value = alumnos[i].usuario.apellidoP;
-    document.getElementById("txtApMaterno").value = alumnos[i].usuario.apellidoM;
-    if(alumnos[i].usuario.genero === 'F'){
+export function cargarForm(usuario){
+//    console.log(alumnos[i].usrname);
+//    getByCorreo(alumnos[i].usrname);
+//    console.log(usuario);
+    
+    document.getElementById("txtNombre").value = usuario.nombre;
+    document.getElementById("txtApPaterno").value = usuario.apellidoP;
+    document.getElementById("txtApMaterno").value = usuario.apellidoM;
+    document.getElementById("txtCorreo").value = usuario.correo;
+    if(usuario.genero === 'F'){
         document.querySelector('#slcgenero').value = 'F';
-    }else if(alumnos[i].usuario.genero === 'M'){
+    }else if(usuario.genero === 'M'){
         document.querySelector('#slcgenero').value = 'M';
     }else{
         document.querySelector('#slcgenero').value = 'O';
     }   
     //document.getElementById("txtContrasenia").value = "";
-    document.getElementById("txtMatricula").value = alumnos[i].matricula;
-    document.getElementById("slcUniversidad").value = alumnos[i].universidad.idUniversidad;
-    document.getElementById("txtidUsuario").value = alumnos[i].usuario.idUsuario;
-    document.getElementById("txtidAlumno").value = alumnos[i].idAlumno;      
+//    document.getElementById("txtMatricula").value = alumnos[i].matricula;
+//    document.getElementById("slcUniversidad").value = alumnos[i].universidad.idUniversidad;
+    document.getElementById("txtidUsuario").value = usuario.idUsuario;
+//    document.getElementById("txtidAlumno").value = alumnos[i].idAlumno;      
 }
 
 function limpiarTablaAlumno(data){

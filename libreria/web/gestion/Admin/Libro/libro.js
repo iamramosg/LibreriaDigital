@@ -78,7 +78,7 @@ export function actualizar() {
     let libro = {datosLibro: JSON.stringify({idLibro: id, titulo: titulo, archivo: pdfBase64, autor: autor, idioma: idioma, genero: genero, estatus: estatus})};
     alert(libro);
     let parametros = new URLSearchParams(libro);
-    fetch("../../api/restlibreria/actualizarLibro", {method: "POST", body: parametros, headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}})
+    fetch("../../api/restlibreria/restablecerLibro", {method: "POST", body: parametros, headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}})
             .then(response => response.json())
             .then(data => function (data) {
                     console.log(data);

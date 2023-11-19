@@ -1,0 +1,103 @@
+body {
+  background-color: #004481 !important;
+ /* Cambia el color a la tonalidad de azul de Bank of America */
+  font-family: 'Asap', sans-serif;
+}
+.logo-img {
+    width: 100px; /* ajusta el ancho según tus necesidades */
+    height: auto; /* para mantener la proporción de aspecto original */
+    display: block; /* para evitar espacios innecesarios debajo de la imagen */
+    margin-bottom: 20px; /* ajusta el margen inferior según el espacio que desees */
+}
+
+.form-group {
+    margin-top: 20px; /* ajusta el margen superior según el espacio que desees */
+}
+.login {
+  overflow: hidden;
+  background-color: white;
+  padding: 40px 30px 30px 30px;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  transform: translate(-50%, -50%);
+  transition: transform 300ms, box-shadow 300ms;
+  box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2);
+}
+
+.login::before,
+.login::after {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-top-left-radius: 40%;
+  border-top-right-radius: 45%;
+  border-bottom-left-radius: 35%;
+  border-bottom-right-radius: 40%;
+  z-index: -1;
+}
+
+.login::before {
+  left: 40%;
+  bottom: -130%;
+  background-color: rgba(69, 105, 144, 0.15);
+  animation: wawes 6s infinite linear;
+}
+
+.login::after {
+  left: 35%;
+  bottom: -125%;
+  background-color: rgba(2, 128, 144, 0.2);
+  animation: wawes 7s infinite;
+}
+
+.login > select,
+.login > input {
+  font-family: 'Asap', sans-serif;
+  display: block;
+  border-radius: 5px;
+  font-size: 16px;
+  background: white;
+  width: calc(100% - 20px); /* Ajusta el ancho total del elemento restando el espacio de los márgenes */
+  border: 0;
+  padding: 10px;
+  margin: 10px 0; /* Ajusta el margen superior e inferior según tus necesidades */
+}
+
+/* Resto de tu código CSS... */
+
+
+/* En tu hoja de estilos CSS */
+.login > button {
+  font-family: 'Asap', sans-serif;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+  width: 80px;
+  border: 0;
+  padding: 10px 0;
+  margin-top: 10px;
+  margin-left: -5px;
+  border-radius: 5px;
+  background-color: #e3174a; /* Color rojo de Bank of America */
+  transition: background-color 300ms;
+}
+
+.login > button:hover {
+  background-color: #b00d37; /* Color de resaltado al pasar el mouse */
+}
+
+@keyframes wawes {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+

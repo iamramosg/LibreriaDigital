@@ -11,12 +11,14 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import org.utl.idgs.libreria.model.Alumno;
 import org.utl.idgs.libreria.model.Universidad;
 import org.utl.idgs.libreria.dao.usuarioDao;
 import org.utl.idgs.libreria.CQRS.UsuarioCQRS;
-import org.utl.idgs.libreria.dao.usuarioDao.ContraseñaIncorrectaException;
 import org.utl.idgs.libreria.AppService.UsuariosAppService;
+import org.utl.idgs.libreria.ViewModels.UsuarioPublicViewModel;
 
 /**
  *
@@ -167,24 +169,23 @@ public class ControllerLogin {
         return r;
     }
 
-    public Usuario entrarAdministrdor(Usuario u) throws Exception {
-        // Validar que el correo no esté vacío
-        if (u.getCorreo() == null || u.getCorreo().isEmpty()) {
-            throw new Exception("Error: El correo esta vacio");
-        }
-        // Validar que la contraseña no esté vacía
-        if (u.getContrasenia() == null || u.getContrasenia().isEmpty()) {
-            throw new Exception("Error: La contraseña esta vacia");
-        }
+    public Usuario loginAdministrador(Usuario u) throws Exception {
 
+        if (u.getCorreo().isEmpty()) {
+            throw new Exception("Error: Correo vacio");
+        }
+        if (u.getContrasenia().isEmpty()) {
+            throw new Exception("Error: Contraseña vacia");
+        }
         usuarioDao dao = new usuarioDao();
-        Usuario usr;
-        try {
-            usr = dao.getByCorreo(u);
-        } catch (ContraseñaIncorrectaException e) {
-            throw new Exception("Error: Contraseña incorrecta");
-        } catch (SQLException e) {
+        String contra = u.getContrasenia();
+        Usuario usr = dao.getByCorreo(u.getCorreo());
+
+        if (usr == null) {
             throw new Exception("Error: Usuario no encontrado");
+        }
+        if (!usr.getContrasenia().equals(contra)) {
+            throw new Exception("Error: Contraseña incorrecta");
         }
 
         if (usr.getEstatus() == 0) {
@@ -192,30 +193,28 @@ public class ControllerLogin {
         }
 
         if (!usr.getRol().equals("Administrador")) {
-            throw new Exception("Error: El usuario no es administrador");
+            throw new Exception("Error: Usuario no es administrador");
         }
-
         return usr;
     }
 
-    public Usuario entrarVendedor(Usuario u) throws Exception {
-        // Validar que el correo no esté vacío
-        if (u.getCorreo() == null || u.getCorreo().isEmpty()) {
-            throw new Exception("Error: El correo esta vacio");
+    public Usuario loginVendedor(Usuario u) throws Exception {
+        if (u.getCorreo().isEmpty()) {
+            throw new Exception("Error: Correo vacio");
         }
-        // Validar que la contraseña no esté vacía
-        if (u.getContrasenia() == null || u.getContrasenia().isEmpty()) {
-            throw new Exception("Error: La contraseña esta vacia");
+        if (u.getContrasenia().isEmpty()) {
+            throw new Exception("Error: Contraseña vacia");
+        }
+        usuarioDao dao = new usuarioDao();
+        String contra = u.getContrasenia();
+        Usuario usr = dao.getByCorreo(u.getCorreo());
+
+        if (usr == null) {
+            throw new Exception("Error: Usuario no encontrado");
         }
 
-        usuarioDao dao = new usuarioDao();
-        Usuario usr;
-        try {
-            usr = dao.getByCorreo(u);
-        } catch (ContraseñaIncorrectaException e) {
+        if (!usr.getContrasenia().equals(contra)) {
             throw new Exception("Error: Contraseña incorrecta");
-        } catch (SQLException e) {
-            throw new Exception("Error: Usuario no encontrado");
         }
 
         if (usr.getEstatus() == 0) {
@@ -223,30 +222,28 @@ public class ControllerLogin {
         }
 
         if (!usr.getRol().equals("Vendedor")) {
-            throw new Exception("Error: El usuario no es vendedor");
+            throw new Exception("Error: Usuario no es vendedor");
         }
-
         return usr;
     }
 
-    public Usuario entrarCliente(Usuario u) throws Exception {
-        // Validar que el correo no esté vacío
-        if (u.getCorreo() == null || u.getCorreo().isEmpty()) {
-            throw new Exception("Error: El correo esta vacio");
+    public Usuario loginCliente(Usuario u) throws Exception {
+        if (u.getCorreo().isEmpty()) {
+            throw new Exception("Error: Correo vacio");
         }
-        // Validar que la contraseña no esté vacía
-        if (u.getContrasenia() == null || u.getContrasenia().isEmpty()) {
-            throw new Exception("Error: La contraseña esta vacia");
+        if (u.getContrasenia().isEmpty()) {
+            throw new Exception("Error: Contraseña vacia");
         }
-        
         usuarioDao dao = new usuarioDao();
-        Usuario usr;
-        try {
-            usr = dao.getByCorreo(u);
-        } catch (ContraseñaIncorrectaException e) {
-            throw new Exception("Error: Contraseña incorrecta");
-        } catch (SQLException e) {
+        String contra = u.getContrasenia();
+        Usuario usr = dao.getByCorreo(u.getCorreo());
+
+        if (usr == null) {
             throw new Exception("Error: Usuario no encontrado");
+        }
+
+        if (!usr.getContrasenia().equals(contra)) {
+            throw new Exception("Error: Contraseña incorrecta");
         }
 
         if (usr.getEstatus() == 0) {
@@ -254,18 +251,43 @@ public class ControllerLogin {
         }
 
         if (!usr.getRol().equals("Cliente")) {
-            throw new Exception("Error: El usuario no es cliente");
+            throw new Exception("Error: Usuario no es cliente");
         }
-
         return usr;
     }
 
     public Usuario insertarCliente(Usuario u) throws Exception {
-        //llamar appService
-        //UsuarioCQRS dao = new UsuarioCQRS();
-        UsuariosAppService uas = new UsuariosAppService();
-        Usuario usr = uas.registroCliente(u);
+        UsuariosAppService appS = new UsuariosAppService();
+        Usuario usr = appS.registroCliente(u);
 
         return usr;
+    }
+
+    public Usuario buscarByCorreo(Usuario u) throws Exception {
+        UsuariosAppService appS = new UsuariosAppService();
+        Usuario usr = appS.buscarUsuarioByCorreo(u);
+
+        return usr;
+    }
+
+    public UsuarioPublicViewModel buscarByCorreoPublic(Usuario u) throws Exception {
+        UsuariosAppService appS = new UsuariosAppService();
+        UsuarioPublicViewModel usr = appS.buscarByCorreoPublic(u);
+
+        return usr;
+    }
+
+    public List<Usuario> getAllUsuario() throws Exception {
+        UsuariosAppService appS = new UsuariosAppService();
+        List<Usuario> lbr = appS.getAllUsuario();
+
+        return lbr;
+    }
+
+    public List<UsuarioPublicViewModel> getAllLibroPublic() throws Exception {
+        UsuariosAppService appS = new UsuariosAppService();
+        List<UsuarioPublicViewModel> lbr = appS.getAllUsuarioPublic();
+
+        return lbr;
     }
 }

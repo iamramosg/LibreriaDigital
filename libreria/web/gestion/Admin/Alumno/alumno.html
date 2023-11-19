@@ -18,15 +18,15 @@
                 <div class="row">
                     <div class="col-4">
                         <label class="form-label">Nombre:</label><br>
-                        <input type="text" id="txtNombre" class="form-control"><br>
+                        <input type="text" id="txtNombre" class="form-control" Disabled><br>
                     </div>
                     <div class="col-4">
                         <label class="form-label">Apellido Paterno:</label><br>
-                        <input type="text" id="txtApPaterno" class="form-control"><br>
+                        <input type="text" id="txtApPaterno" class="form-control" Disabled><br>
                     </div>
                     <div class="col-4">
                         <label class="form-label">Apellido Materno:</label><br>
-                        <input type="text" id="txtApMaterno" class="form-control"><br>
+                        <input type="text" id="txtApMaterno" class="form-control" Disabled><br>
                     </div>
                 </div>
                 <div class="row">
@@ -40,31 +40,12 @@
                         </select>   
                     </div>
                     <div class="col-4">
+                        <label class="form-label">Correo: </label><br>
+                        <input type="text" id="txtCorreo" class="form-control" Disabled><br>  
+                    </div>                    
+                    <div class="col-4">
                         <label class="form-label">Contraseña:</label><br>
                         <input type="text" id="txtContrasenia" class="form-control"><br>  
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-6">
-                        <label class="form-label">Matricula:</label><br>
-                        <input type="text" id="txtMatricula" class="form-control"><br>
-                    </div>
-                    <div class="col-6">
-                        <label class="form-label">Universidad:</label><br>
-                        <select class="form-select" id="slcUniversidad">
-                            <option value="1">Selecciona una opción</option>
-                            <option value="2">Universidad Nacional Autonoma de México</option>
-                            <option value="3">Universidad de Guanajuato</option>
-                            <option value="4">Universidad de Guadalajara</option>
-                            <option value="5">Universidad de Toronto</option>
-                            <option value="6">Universidad de Otawa</option>
-                            <option value="7">La Soborbona</option>
-                            <option value="8">Universidad Técnica de Munich</option>
-                            <option value="9">Universidad Autónoma de Madrid</option>
-                            <option value="10">Universidad Católica Portuguesa</option>
-                            <option value="11">Universidad de Princeton</option>
-                        </select>                                  
                     </div>
                 </div>
                 <hr> 
@@ -77,9 +58,6 @@
         </div>
         <div style="background-color:#EFEFEF">
             <div class="row">
-                <div class="col-4">
-                    <button type="button" class="btn btn-outline-primary m-3" onclick="ma.getAll()">Alumnos</button>
-                </div>
                 <div class="col-8">
                     <form class="d-flex">
                         <input class="form-control me-2" type="search" placeholder="Buscar"  aria-label="Buscar" id="myInput" onkeyup="myInput">
@@ -91,11 +69,8 @@
             <table  class="table table-striped">
                 <thead>
                     <tr>
-                        <td>NOMBRE</td>
-                        <td>UNIVERSIDAD</td>
                         <td>CORREO</td>
-                        <td>MATRICULA</td>
-                        <td>ELIMINAR </td>
+                       
                         <td>VER</td>
                     </tr>
                 </thead>

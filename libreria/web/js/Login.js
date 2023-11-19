@@ -13,6 +13,7 @@ function login() {
 
 
     encriptar(contrasenia).then((textoEncriptado) => {
+    alert(textoEncriptado.toString());
     let usuario = {"datosUsuario": JSON.stringify({"correo": user, "contrasenia": textoEncriptado})};
 
     const url = new URLSearchParams(usuario);
@@ -66,8 +67,8 @@ async function insertar() {
     let genero = document.getElementById("slcGenero").value;
     let correo = document.getElementById("txtCorreo").value;
     let contrasenia = document.getElementById("txtPassword").value;
-    let matricula = document.getElementById("txtMatricula").value;
-    let idUniversidad = document.getElementById("slcUniversidad").value;
+//    let matricula = document.getElementById("txtMatricula").value;
+//    let idUniversidad = document.getElementById("slcUniversidad").value;
 
     // Encriptar la contraseña antes de enviarla
     encriptar(contrasenia)
@@ -81,12 +82,12 @@ async function insertar() {
                 contrasenia: contraseniaEncriptada // Enviamos la contraseña encriptada
             };
 
-            let universidad = { idUniversidad: idUniversidad };
-            let a = { usuario: usuario, matricula: matricula, universidad: universidad };
-            let alumno = { datosAlumno: JSON.stringify(a) };
+//            let universidad = { idUniversidad: idUniversidad };
+//            let a = { usuario: usuario};
+            let alumno = { datosUsuario: JSON.stringify(usuario) };
             let parametros = new URLSearchParams(alumno);
 
-            fetch("api/restlibreria/insertarAlumno", {
+            fetch("api/restlibreria/insertarCliente", {
                 method: "POST",
                 body: parametros,
                 headers: {
@@ -98,14 +99,10 @@ async function insertar() {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Alumno agregado exitosamente',
+                    title: 'Usuario agregado exitosamente',
                     showConfirmButton: false,
                     timer: 1500
                 });
-                //redirigir despues de 1.5 segundos (1500 ms)
-                setTimeout(function(){
-                    window.location.href = "../libreria/index.html";
-                }, 1500);
                 
             })
             .catch(error => {
