@@ -15,16 +15,18 @@ public class TransaccionPublicViewModel {
     private float transacMonto;
     private String transacFecha;
     private String transacBanco; 
-    private String transKeyCode; //Agregue este atributo
+    private String transCodigo; //Agregue este atributo
 
-    public TransaccionPublicViewModel(int transacId, int transacUsuario, float transacMonto, String transacFecha, String transacBanco, String transKeyCode) {
+    public TransaccionPublicViewModel(int transacId, int transacUsuario, float transacMonto, String transacFecha, String transacBanco, String transCodigo) {
         this.transacId = transacId;
         this.transacUsuario = transacUsuario;
         this.transacMonto = transacMonto;
         this.transacFecha = transacFecha;
         this.transacBanco = transacBanco;
-        this.transKeyCode = transKeyCode;
+        this.transCodigo = transCodigo;
     }
+    
+    
     
     
     
