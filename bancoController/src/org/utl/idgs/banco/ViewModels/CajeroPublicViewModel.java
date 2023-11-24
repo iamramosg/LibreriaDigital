@@ -16,6 +16,31 @@ public class CajeroPublicViewModel {
         this.caId = caId;
         this.caSaldo = caSaldo;
     }
+
+    public CajeroPublicViewModel() {
+    }
+
+    public CajeroPublicViewModel(float caSaldo) {
+        this.caSaldo = caSaldo;
+    }
+
+    public int getCaId() {
+        return caId;
+    }
+
+    public void setCaId(int caId) {
+        this.caId = caId;
+    }
+
+    public float getCaSaldo() {
+        return caSaldo;
+    }
+
+    public void setCaSaldo(float caSaldo) {
+        this.caSaldo = caSaldo;
+    }
+    
+    
     
     
 }

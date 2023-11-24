@@ -11,7 +11,9 @@ import org.utl.idgs.banco.model.*;
  * @author iamra
  */
 public class TransaccionCQRS {
+    // Usuario propio que retira desde cajero externo
     public TransactionRequest insertarSolicitud(TransactionRequest tr) throws Exception{
+        
         if(tr.getCustomer().getIdCustomer()== 0 ){
             throw new Exception("Error: Usuario no encontrado");
         }
@@ -22,14 +24,12 @@ public class TransaccionCQRS {
             throw new Exception("Error: Banco no encontrado");
         }      
         TransaccionDao td = new TransaccionDao();
-        int tdId = td.insertarSolicitud(tr);
+        String codigo = td.insertarSolicitud(tr);
         return tr;
     }
     
     public ApproveTransaction insertarAprobacion(ApproveTransaction at) throws Exception{
-        if(at.getCustomer().getIdCustomer()== 0 ){
-            throw new Exception("Error: Usuario no encontrado");
-        }
+
         if(at.getCantidad() <= 0){
             throw new Exception("Error: Cantidad Incorrecta");
         }      

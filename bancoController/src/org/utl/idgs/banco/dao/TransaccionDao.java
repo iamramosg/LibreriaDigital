@@ -19,7 +19,7 @@ import org.utl.idgs.banco.model.*;
  * @author iamra
  */
 public class TransaccionDao {
-    public int insertarSolicitud(TransactionRequest request) throws Exception{
+    public String insertarSolicitud(TransactionRequest request) throws Exception{
         String query = "call insertarSolicitud(?,?,?,?,?)";
         String keyCode = "";
         int idTransaccion = 0;
@@ -48,7 +48,7 @@ public class TransaccionDao {
         conn.close();
         conexion.close();
 
-        return idTransaccion;
+        return keyCode;
     }    
     
     public int insertarAprobacion(ApproveTransaction approveTransaction) throws Exception{
